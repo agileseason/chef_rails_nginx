@@ -1,0 +1,91 @@
+# This file is managed by Chef.
+# Do NOT modify this file directly.
+
+<% if @is_cache_enabled %>
+proxy_cache_path <%= @app_cache %> levels=1:2 keys_zone=app_cache:50m max_size=1g inactive=720m;
+<% end %>
+
+# http://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream
+upstream <%= @upstream_name %> {
+  server unix:<%= @app_shared %>/tmp/sockets/unicorn.socket;
+}
+
+server {
+  <% unless @is_https_only %>
+  listen <%= node['nginx']['port'] || 80 %>;
+  <% end %>
+  <% unless @is_http_only %>
+  listen 443 ssl;
+  <% end %>
+
+  server_name <%= @domains.join ' ' %>;
+  root <%= @app_root %>/public;
+
+  server_tokens off;
+  client_max_body_size 100M;
+
+  access_log  <%= @app_shared %>/log/nginx_access.log;
+  error_log  <%= @app_shared %>/log/nginx_error.log;
+
+  location /nginx_stub_status {
+    stub_status on;
+  }
+
+  # https://www.linode.com/docs/websites/nginx/how-to-configure-nginx
+  location ~* ^.+\.(zip|tgz|gz|rar|bz2|pdf)$ {
+    access_log off;
+    add_header Cache-Control no-cache;
+    expires 0;
+  }
+
+  location / {
+    # serve static files from defined root folder;
+    # @app is a named location for the upstream fallback
+    try_files $uri $uri/index.html $uri.html @app;
+  }
+
+  location @app {
+    <% if @is_cache_enabled %>
+    proxy_cache app_cache;
+    <% end %>
+    proxy_read_timeout 300;
+    proxy_connect_timeout 300;
+    proxy_redirect off;
+
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+
+    proxy_pass http://<%= @upstream_name %>;
+  }
+  <% unless @is_http_only %>
+  <% if @is_ssl_password %>
+  ssl_password_file <%= @ssl_files['ssl_password_file']['name'] %>;
+  <% end %>
+  ssl_certificate <%= @ssl_files['ssl_certificate']['name'] %>;
+  ssl_certificate_key <%= @ssl_files['ssl_certificate_key']['name'] %>;
+
+  ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers  "RC4:HIGH:!aNULL:!MD5:!kEDH";
+  <% end %>
+}
+
+<% if @is_www_redirect %>
+server {
+  listen <%= node['nginx']['port'] || 80 %>;
+  <% unless @is_http_only %>
+  listen 443 ssl;
+  <% end %>
+  server_name <%= @www_redirect_from %>;
+  return 301 $scheme://<%=@www_redirect_to%>$request_uri;
+}
+<% end %>
+
+<% if @is_https_only %>
+server {
+  listen <%= node['nginx']['port'] || 80 %>;
+  server_name <%= @domains.join ' ' %>;
+  return 301 https://$host$request_uri;
+}
+<% end %>
