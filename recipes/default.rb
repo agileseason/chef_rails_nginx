@@ -24,9 +24,9 @@ upstream_name = "#{app.name}_#{app.env}"
 
 unless config['ssl_mode'] == 'http_only'
   bash 'Generate DH parameters' do
-    not_if { File.exists? "/etc/ssl/#{@app_name}.dhparam.pem" }
+    not_if { File.exists? "/etc/ssl/#{app.name}.dhparam.pem" }
     code <<-CODE
-      openssl dhparam -out /etc/ssl/#{@app_name}.dhparam.pem 2048
+      openssl dhparam -out /etc/ssl/#{app.name}.dhparam.pem 2048
     CODE
   end
 end
