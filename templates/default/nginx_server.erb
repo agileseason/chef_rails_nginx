@@ -87,7 +87,7 @@ server {
 server {
   listen <%= node['nginx']['port'] || 80 %>;
   <% unless @is_http_only %>
-  listen 443 ssl;
+  listen 443 ssl http2;
   <% end %>
   server_name <%= @www_redirect_from %>;
   return 301 $scheme://<%=@www_redirect_to%>$request_uri;
