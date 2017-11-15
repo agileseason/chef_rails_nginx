@@ -10,7 +10,7 @@
 app = AppHelpers.new node['app']
 config = node['chef_rails_nginx']
 
-include_recipe 'chef_rails_nginx::upload_ssl_files'
+# include_recipe 'chef_rails_nginx::upload_ssl_files'
 include_recipe 'chef_nginx::source'
 
 # always create default server config
@@ -22,12 +22,22 @@ end
 config_name = "#{app.name}_#{app.env}"
 upstream_name = "#{app.name}_#{app.env}"
 
+unless config['ssl_mode'] == 'http_only'
+  bash 'Generate DH parameters' do
+    not_if { File.exists? "/etc/ssl/#{@app_name}.dhparam.pem" }
+    code <<-CODE
+      openssl dhparam -out /etc/ssl/#{@app_name}.dhparam.pem 2048
+    CODE
+  end
+end
+
 template "/etc/nginx/sites-available/#{config_name}" do
   source 'nginx_server.erb'
 
   variables(
     upstream_name: upstream_name,
     domains: config['domains'],
+    app_name: app.name,
     app_root: app.dir(:root),
     app_shared: app.dir(:shared),
     app_cache: app.dir(:nginx_cache),
