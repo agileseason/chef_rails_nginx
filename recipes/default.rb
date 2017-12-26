@@ -31,6 +31,8 @@ unless config['ssl_mode'] == 'http_only'
   end
 end
 
+include_recipe 'chef_rails_nginx::letsencrypt' if config['letsencrypt']['enabled']
+
 template "/etc/nginx/sites-available/#{config_name}" do
   source 'nginx_server.erb'
 
@@ -45,6 +47,7 @@ template "/etc/nginx/sites-available/#{config_name}" do
     is_cache_enabled: config['cache_enabled'],
     is_http_only: (config['ssl_mode'] == 'http_only'),
     is_https_only: (config['ssl_mode'] == 'https_only'),
+    is_letsencrypt: (config['ssl_mode'] == 'https_only' && config['letsencrypt']['enabled']),
     is_ssl_password: (config['ssl_files'] && config['ssl_files']['ssl_password_file']),
     is_www_redirect: config['www_redirect'],
     www_redirect_from: (config['www_redirect']['from'] if config['www_redirect']),
