@@ -51,7 +51,9 @@ template "/etc/nginx/sites-available/#{config_name}" do
     is_ssl_password: (config['ssl_files'] && config['ssl_files']['ssl_password_file']),
     is_www_redirect: config['www_redirect'],
     www_redirect_from: (config['www_redirect']['from'] if config['www_redirect']),
-    www_redirect_to: (config['www_redirect']['to'] if config['www_redirect'])
+    www_redirect_to: (config['www_redirect']['to'] if config['www_redirect']),
+    page_404: config['page_404'],
+    page_50x: config['page_50x']
   )
 
   notifies :reload, 'service[nginx]'

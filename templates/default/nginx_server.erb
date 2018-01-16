@@ -27,6 +27,13 @@ server {
   access_log  <%= @app_shared %>/log/nginx_access.log;
   error_log  <%= @app_shared %>/log/nginx_error.log;
 
+  <% if @page_50x %>
+  error_page 500 503 /public/500.html;
+  <% end %>
+  <% if @page_404 %>
+  error_page 404 /public/404.html;
+  <% end %>
+
   location /nginx_stub_status {
     stub_status on;
   }
@@ -36,6 +43,15 @@ server {
     access_log off;
     add_header Cache-Control no-cache;
     expires 0;
+  }
+
+  location /uploads/ {
+    # serve static files from images folder;
+    alias <%= @app_root %>/public/uploads/;
+    try_files $uri =404;
+    <% if @page_404 %>
+    error_page 404 /public/404.html;
+    <% end %>
   }
 
   location / {
