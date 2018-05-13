@@ -36,8 +36,10 @@ server {
 
   <% if @custom_config_section %><%=@custom_confi_sectiong %><% end %>
   <% if @basic_auth_file %>
-  auth_basic           "Restricted Access!";
-  auth_basic_user_file <%=@basic_auth_file %>;
+  location <%=@basic_auth_location %> {
+    auth_basic           "Restricted Access!";
+    auth_basic_user_file <%=@basic_auth_file %>;
+  }
   <% end %>
 
   location /nginx_stub_status {
