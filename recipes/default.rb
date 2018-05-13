@@ -32,6 +32,7 @@ unless config['ssl_mode'] == 'http_only'
 end
 
 include_recipe 'chef_rails_nginx::letsencrypt' if config['letsencrypt']['enabled']
+include_recipe 'chef_rails_nginx::basic_auth' if config['basic_auth']['enabled']
 
 template "/etc/nginx/sites-available/#{config_name}" do
   source 'nginx_server.erb'
@@ -55,6 +56,7 @@ template "/etc/nginx/sites-available/#{config_name}" do
     page_404: config['page_404'],
     page_50x: config['page_50x'],
     custom_config_section: config['custom_config_section']
+    basic_auth: default['chef_rails_nginx']['basic_auth']['enabled']
   )
 
   notifies :reload, 'service[nginx]'
