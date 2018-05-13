@@ -53,7 +53,8 @@ template "/etc/nginx/sites-available/#{config_name}" do
     www_redirect_from: (config['www_redirect']['from'] if config['www_redirect']),
     www_redirect_to: (config['www_redirect']['to'] if config['www_redirect']),
     page_404: config['page_404'],
-    page_50x: config['page_50x']
+    page_50x: config['page_50x'],
+    custom_config_section: config['custom_config_section']
   )
 
   notifies :reload, 'service[nginx]'

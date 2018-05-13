@@ -34,6 +34,8 @@ server {
   error_page 404 /public/404.html;
   <% end %>
 
+  <% if @custom_config_section %><%=@custom_confi_sectiong %><% end %>
+
   location /nginx_stub_status {
     stub_status on;
   }
