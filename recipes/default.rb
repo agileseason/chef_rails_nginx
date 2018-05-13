@@ -55,8 +55,8 @@ template "/etc/nginx/sites-available/#{config_name}" do
     www_redirect_to: (config['www_redirect']['to'] if config['www_redirect']),
     page_404: config['page_404'],
     page_50x: config['page_50x'],
-    custom_config_section: config['custom_config_section']
-    basic_auth: default['chef_rails_nginx']['basic_auth']['enabled']
+    custom_config_section: config['custom_config_section'],
+    basic_auth: config['basic_auth']['enabled']
   )
 
   notifies :reload, 'service[nginx]'
