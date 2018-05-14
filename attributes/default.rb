@@ -16,6 +16,7 @@ default['chef_rails_nginx']['basic_auth']['enabled'] = false
 default['chef_rails_nginx']['basic_auth']['login'] = nil
 default['chef_rails_nginx']['basic_auth']['password'] = nil
 default['chef_rails_nginx']['basic_auth']['location'] = '/'
-default['chef_rails_nginx']['basic_auth']['file'] = '/etc/nginx/conf.d/.htpasswd'
+default['chef_rails_nginx']['basic_auth']['file'] =
+  '/etc/nginx/conf.d/.htpasswd'
 
 default['chef_rails_nginx']['custom_config_section'] = nil

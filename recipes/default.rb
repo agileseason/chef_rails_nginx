@@ -24,14 +24,16 @@ upstream_name = "#{app.name}_#{app.env}"
 
 unless config['ssl_mode'] == 'http_only'
   bash 'Generate DH parameters' do
-    not_if { File.exists? "/etc/ssl/#{app.name}.dhparam.pem" }
+    not_if { File.exist? "/etc/ssl/#{app.name}.dhparam.pem" }
     code <<-CODE
       openssl dhparam -out /etc/ssl/#{app.name}.dhparam.pem 2048
     CODE
   end
 end
 
-include_recipe 'chef_rails_nginx::letsencrypt' if config['letsencrypt']['enabled']
+if config['letsencrypt']['enabled']
+  include_recipe 'chef_rails_nginx::letsencrypt'
+end
 include_recipe 'chef_rails_nginx::basic_auth' if config['basic_auth']['enabled']
 
 template "/etc/nginx/sites-available/#{config_name}" do
@@ -48,16 +50,26 @@ template "/etc/nginx/sites-available/#{config_name}" do
     is_cache_enabled: config['cache_enabled'],
     is_http_only: (config['ssl_mode'] == 'http_only'),
     is_https_only: (config['ssl_mode'] == 'https_only'),
-    is_letsencrypt: (config['ssl_mode'] == 'https_only' && config['letsencrypt']['enabled']),
-    is_ssl_password: (config['ssl_files'] && config['ssl_files']['ssl_password_file']),
+    is_letsencrypt: (
+      config['ssl_mode'] == 'https_only' && config['letsencrypt']['enabled']
+    ),
+    is_ssl_password: (
+      config['ssl_files'] && config['ssl_files']['ssl_password_file']
+    ),
     is_www_redirect: config['www_redirect'],
-    www_redirect_from: (config['www_redirect']['from'] if config['www_redirect']),
+    www_redirect_from: (
+      config['www_redirect']['from'] if config['www_redirect']
+    ),
     www_redirect_to: (config['www_redirect']['to'] if config['www_redirect']),
     page_404: config['page_404'],
     page_50x: config['page_50x'],
     custom_config_section: config['custom_config_section'],
-    basic_auth_location: (config['basic_auth']['location'] if config['basic_auth']['enabled'])
-    basic_auth_file: (config['basic_auth']['file'] if config['basic_auth']['enabled'])
+    basic_auth_location: (
+      config['basic_auth']['location'] if config['basic_auth']['enabled']
+    ),
+    basic_auth_file: (
+      config['basic_auth']['file'] if config['basic_auth']['enabled']
+    )
   )
 
   notifies :reload, 'service[nginx]'
