@@ -11,7 +11,7 @@ checksum = '5d15becbf69aba1fe33f8d416d97edd95ea8919ea9ac519eff9bafebb6022cb5'
 override['nginx']['version'] = version
 override['nginx']['dir'] = '/etc/nginx'
 override['nginx']['log_dir'] = '/var/log/nginx'
-override['nginx']['init_style'] = 'init'
+override['nginx']['init_style'] = 'systemd'
 override['nginx']['default_site_enabled'] = false
 
 # NOTE: override all source attributes using version
