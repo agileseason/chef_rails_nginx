@@ -42,6 +42,7 @@ template "/etc/nginx/sites-available/#{config_name}" do
   variables(
     upstream_name: upstream_name,
     domains: config['domains'],
+    static_domains: config['domains'],
     app_name: app.name,
     app_root: app.dir(:root),
     app_shared: app.dir(:shared),
@@ -64,6 +65,7 @@ template "/etc/nginx/sites-available/#{config_name}" do
     page_404: config['page_404'],
     page_50x: config['page_50x'],
     custom_config_section: config['custom_config_section'],
+    custom_server_section: config['custom_server_section'],
     basic_auth_location: (
       config['basic_auth']['location'] if config['basic_auth']['enabled']
     ),

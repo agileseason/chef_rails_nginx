@@ -1,17 +1,17 @@
 app = AppHelpers.new node['app']
 config = node['chef_rails_nginx']['letsencrypt']
 
-fail "site_name is not set" if config['site_name'].nil?
-fail "contact is not set" if config['contact'].nil?
-fail "domains is not set" if config['domains'].nil? || config['domains'].none?
+raise 'site_name is not set' if config['site_name'].nil?
+raise 'contact is not set' if config['contact'].nil?
+raise 'domains is not set' if config['domains'].nil? || config['domains'].none?
 
 template '/etc/nginx/sites-available/letsencrypt_server' do
   source 'letsencrypt_server.erb'
   variables domains: config['domains']
   notifies :reload, 'service[nginx]'
 end
-link "/etc/nginx/sites-enabled/letsencrypt_server" do
-  to "/etc/nginx/sites-available/letsencrypt_server"
+link '/etc/nginx/sites-enabled/letsencrypt_server' do
+  to '/etc/nginx/sites-available/letsencrypt_server'
 end
 
 node.override['acme']['contact'] = config['contact']
@@ -24,6 +24,6 @@ acme_certificate config['site_name'] do
   chain    "/etc/ssl/#{config['site_name']}.chain.pem"
   fullchain "/etc/ssl/#{config['site_name']}.fullchain.pem"
 
-  wwwroot  '/var/www/letsencrypt'
+  wwwroot '/var/www/letsencrypt'
   alt_names config['domains']
 end

@@ -1,4 +1,5 @@
 default['chef_rails_nginx']['domains'] = []
+default['chef_rails_nginx']['static_domains'] = []
 default['chef_rails_nginx']['cache_enabled'] = true
 default['chef_rails_nginx']['ssl_mode'] = 'http_only'
 default['chef_rails_nginx']['ssl_files'] = {}
