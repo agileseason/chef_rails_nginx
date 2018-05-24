@@ -28,10 +28,10 @@ server {
   error_log  <%= @app_shared %>/log/nginx_error.log;
 
   <% if @page_50x %>
-  error_page 500 502 503 /public/500.html;
+  error_page 500 502 503 /500.html;
   <% end %>
   <% if @page_404 %>
-  error_page 404 /public/404.html;
+  error_page 404 /404.html;
   <% end %>
 
   <% if @custom_config_section %><%=@custom_confi_sectiong %><% end %>
