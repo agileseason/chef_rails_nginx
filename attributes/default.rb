@@ -8,6 +8,9 @@ default['chef_rails_nginx']['www_redirect'] = nil
 default['chef_rails_nginx']['page_404'] = true
 default['chef_rails_nginx']['page_50x'] = true
 
+default['chef_rails_nginx']['unicorn']['enabled'] = true
+default['chef_rails_nginx']['puma']['enabled'] = false
+
 default['chef_rails_nginx']['letsencrypt']['enabled'] = false
 default['chef_rails_nginx']['letsencrypt']['site_name'] = nil
 default['chef_rails_nginx']['letsencrypt']['contact'] = nil

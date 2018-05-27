@@ -48,6 +48,8 @@ template "/etc/nginx/sites-available/#{config_name}" do
     app_shared: app.dir(:shared),
     app_cache: app.dir(:nginx_cache),
     ssl_files: config['ssl_files'],
+    is_unicorn: config['unicorn']['enabled'],
+    is_puma: config['puma']['enabled'],
     is_cache_enabled: config['cache_enabled'],
     is_http_only: (config['ssl_mode'] == 'http_only'),
     is_https_only: (config['ssl_mode'] == 'https_only'),

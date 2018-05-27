@@ -5,10 +5,12 @@
 proxy_cache_path <%= @app_cache %> levels=1:2 keys_zone=app_cache:50m max_size=1g inactive=720m;
 <% end %>
 
+<% if @is_unicorn || @is_puma %>
 # http://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream
 upstream <%= @upstream_name %> {
-  server unix:<%= @app_shared %>/tmp/sockets/unicorn.socket;
+  server unix:<%= @app_shared %>/tmp/sockets/<%=@is_unicorn ? 'unicorn' : 'puma' %>.socket;
 }
+<% end %>
 
 server {
   <% unless @is_https_only %>
@@ -113,6 +115,7 @@ server {
     try_files $uri @app;
   }
 
+  <% if @is_unicorn || @is_puma %>
   location @app {
     <% if @is_cache_enabled %>
     proxy_cache app_cache;
@@ -131,6 +134,7 @@ server {
 
     proxy_pass http://<%= @upstream_name %>;
   }
+  <% end %>
 }
 
 <% if @is_www_redirect %>
