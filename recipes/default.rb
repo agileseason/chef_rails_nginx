@@ -66,7 +66,6 @@ template "/etc/nginx/sites-available/#{config_name}" do
     page_404: config['page_404'],
     page_50x: config['page_50x'],
     custom_config_section: config['custom_config_section'],
-    custom_server_section: config['custom_server_section'],
     basic_auth_location: (
       config['basic_auth']['location'] if config['basic_auth']['enabled']
     ),

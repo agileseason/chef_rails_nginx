@@ -59,7 +59,7 @@ server {
   ssl_stapling_verify on;
   <% end %>
 
-  <% if @custom_config_section %><%=@custom_confi_sectiong %><% end %>
+  <% if @custom_config_section %><%=@custom_config_section %><% end %>
   <% if @basic_auth_file %>
   location <%=@basic_auth_location %> {
     auth_basic           "Restricted Access!";
