@@ -8,7 +8,6 @@
 #
 
 app = AppHelpers.new node['app']
-config = node['chef_rails_nginx']
 
 # include_recipe 'chef_rails_nginx::upload_ssl_files'
 include_recipe 'chef_nginx::source'
@@ -22,14 +21,19 @@ end
 config_name = "#{app.name}_#{app.env}"
 upstream_name = "#{app.name}_#{app.env}"
 
-unless config['ssl_mode'] == 'http_only'
+unless node['chef_rails_nginx']['ssl_mode'] == 'http_only'
   include_recipe 'chef_rails_nginx::dhparam'
 end
 
-if config['letsencrypt']['enabled']
+if node['chef_rails_nginx']['letsencrypt']['enabled']
   include_recipe 'chef_rails_nginx::letsencrypt'
 end
-include_recipe 'chef_rails_nginx::basic_auth' if config['basic_auth']['enabled']
+if node['chef_rails_nginx']['basic_auth']['enabled']
+  include_recipe 'chef_rails_nginx::basic_auth'
+end
+
+# must be set after letsencrypt becase ssl_files can be overrided
+config = node['chef_rails_nginx']
 
 template "/etc/nginx/sites-available/#{config_name}" do
   source 'nginx_server.erb'
@@ -42,7 +46,7 @@ template "/etc/nginx/sites-available/#{config_name}" do
     app_root: app.dir(:root),
     app_shared: app.dir(:shared),
     app_cache: app.dir(:nginx_cache),
-    ssl_files: config['ssl_files'],
+    ssl_files: node['chef_rails_nginx']['ssl_files'],
     is_unicorn: config['unicorn']['enabled'],
     is_puma: config['puma']['enabled'],
     is_cache_enabled: config['cache_enabled'],
