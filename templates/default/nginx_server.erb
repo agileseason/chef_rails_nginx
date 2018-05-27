@@ -43,7 +43,7 @@ server {
   ssl_certificate <%= @ssl_files['ssl_certificate'] %>;
   ssl_certificate_key <%= @ssl_files['ssl_certificate_key'] %>;
 
-  ssl_dhparam /etc/ssl/<%=@app_name %>.dhparam.pem;
+  ssl_dhparam <%= @ssl_files['ssl_dhparam'] %>;
 
   # enable session resumption to improve https performance
   # http://vincent.bernat.im/en/blog/2011-ssl-session-reuse-rfc5077.html
@@ -153,10 +153,12 @@ server {
   listen <%= node['nginx']['port'] || 80 %>;
   server_name <%= (@domains + @static_domains).join ' ' %>;
 
+  <% if @is_letsencrypt %>
   location ^~ /.well-known/acme-challenge/ {
     default_type "text/plain";
     root /var/www/letsencrypt;
   }
+  <% end %>
 
   location / {
     return 301 https://$host$request_uri;

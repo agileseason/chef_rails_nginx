@@ -23,12 +23,7 @@ config_name = "#{app.name}_#{app.env}"
 upstream_name = "#{app.name}_#{app.env}"
 
 unless config['ssl_mode'] == 'http_only'
-  bash 'Generate DH parameters' do
-    not_if { File.exist? "/etc/ssl/#{app.name}.dhparam.pem" }
-    code <<-CODE
-      openssl dhparam -out /etc/ssl/#{app.name}.dhparam.pem 2048
-    CODE
-  end
+  include_recipe 'chef_rails_nginx::dhparam'
 end
 
 if config['letsencrypt']['enabled']

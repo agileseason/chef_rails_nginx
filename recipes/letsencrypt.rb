@@ -1,9 +1,24 @@
 app = AppHelpers.new node['app']
 config = node['chef_rails_nginx']['letsencrypt']
 
-raise 'site_name is not set' if config['site_name'].nil?
-raise 'contact is not set' if config['contact'].nil?
-raise 'domains is not set' if config['domains'].nil? || config['domains'].none?
+if config['site_name'].nil?
+  raise "node['chef_rails_nginx']['letsencrypt']['site_name'] is not set"
+end
+if config['contact'].nil?
+  raise "node['chef_rails_nginx']['letsencrypt']['contact'] is not set"
+end
+if config['domains'].nil? || config['domains'].none?
+  raise "node['chef_rails_nginx']['letsencrypt']['domains'] is not set"
+end
+
+node.override['chef_rails_nginx']['ssl_files']['ssl_certificate_key'] =
+  "/etc/ssl/#{app.name}.key"
+node.override['chef_rails_nginx']['ssl_files']['ssl_certificate_chain'] =
+  "/etc/ssl/#{app.name}.chain.pem"
+node.override['chef_rails_nginx']['ssl_files']['ssl_certificate'] =
+  "/etc/ssl/#{app.name}.fullchain.pem"
+
+ssl_files = node['chef_rails_nginx']['ssl_files']
 
 template '/etc/nginx/sites-available/letsencrypt_server' do
   source 'letsencrypt_server.erb'
@@ -19,10 +34,10 @@ node.override['acme']['contact'] = config['contact']
 include_recipe 'acme::default'
 
 acme_certificate config['site_name'] do
-  # crt      "/etc/ssl/#{config['site_name']}.crt"
-  key      "/etc/ssl/#{config['site_name']}.key"
-  chain    "/etc/ssl/#{config['site_name']}.chain.pem"
-  fullchain "/etc/ssl/#{config['site_name']}.fullchain.pem"
+  # crt      "/etc/ssl/#{app.name}.crt"
+  key      ssl_files['ssl_certificate_key']
+  chain    ssl_files['ssl_certificate_chain']
+  fullchain ssl_files['ssl_certificate']
 
   wwwroot '/var/www/letsencrypt'
   alt_names config['domains']
