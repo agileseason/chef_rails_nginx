@@ -9,9 +9,7 @@
 
 config = node['chef_rails_nginx']
 
-if config['servers'].empty?
-  raise "node['chef_rails_nginx']['servers'] is empty"
-end
+raise "node['chef_rails_nginx']['servers'] is empty" if config['servers'].empty?
 
 include_recipe 'chef_nginx::source'
 include_recipe 'chef_rails_nginx::upload_ssl_files' # must be before ssl_dhparam
