@@ -35,3 +35,6 @@ override['nginx']['source']['default_configure_flags'] = %W[
   --conf-path=#{node['nginx']['dir']}/nginx.conf
   --sbin-path=#{node['nginx']['source']['sbin_path']}
 ]
+
+override['nginx']['worker_connections'] = 16_384
+override['nginx']['worker_rlimit_nofile'] = 30_000
