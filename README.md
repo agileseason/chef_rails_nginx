@@ -41,6 +41,7 @@ Example 1
 ---------
 
 ```ruby
+# config for rails with unicorn upstream support
 node.override['chef_rails_nginx']['servers']['shikimori'] = {
   domains: %w[
     shikimori.org
@@ -57,6 +58,7 @@ node.override['chef_rails_nginx']['servers']['shikimori'] = {
   CONFIG
 }
 
+# config for static server with http support
 node.override['chef_rails_nginx']['servers']['static'] = {
   name: 'shikimori_static',
   domains: %w[
@@ -66,6 +68,7 @@ node.override['chef_rails_nginx']['servers']['static'] = {
     dere.shikimori.org
     desu.shikimori.org
   ],
+  allow_http: true,
   config: <<-CONFIG
     root /home/apps/shikimori/production/current/public;
   CONFIG

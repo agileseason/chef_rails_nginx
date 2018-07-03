@@ -1,13 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
-This file is used to list changes made in each version of the chef_rails_nginx cookbook.
-
-0.1.0
+0.3.1
 -----
-- [your_name] - Initial release of chef_rails_nginx
+- Add "allow_http" option.
 
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
-
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+0.3.0
+-----
+- Comple overhaul of cookbook. Add support for multiple nginx servers.

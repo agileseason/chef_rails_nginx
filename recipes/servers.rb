@@ -27,6 +27,7 @@ node['chef_rails_nginx']['servers'].each do |_, config|
       basic_auth_location: (basic_auth['location'] if basic_auth['enabled']),
       basic_auth_file: (basic_auth['file'] if basic_auth['enabled']),
 
+      allow_http: config['allow_http'],
       www_redirect_from: (www_redirect['from'] if www_redirect),
       www_redirect_to: (www_redirect['to'] if www_redirect)
     )
