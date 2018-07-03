@@ -1,7 +1,7 @@
 # This file is managed by Chef.
 # Do NOT modify this file directly.
 
-<%- if @config.include?("server {") -%>
+<%- if @config && @config.include?("server {") -%>
 <%=@config %>
 <%- else -%>
 <%- if @cache_enabled -%>
