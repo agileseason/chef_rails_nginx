@@ -40,7 +40,10 @@ server {
 <%- end -%>
 
 server {
-  listen <%='80 ' if @allow_http %>443 ssl http2;
+<%- if @allow_http -%>
+  listen 80;
+<%- end -%>
+  listen 443 ssl http2;
   server_name <%= @domains.join ' ' %>;
 
 <%- if @upstream -%>
