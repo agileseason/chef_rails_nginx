@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.3
+-----
+- Add nginx restart after acme_certificate installation.
+
 0.3.1
 -----
 - Add "allow_http" option.

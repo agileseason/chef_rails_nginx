@@ -41,4 +41,6 @@ acme_certificate config['site_name'] do
 
   wwwroot '/var/www/letsencrypt'
   alt_names config['domains']
+
+  notifies :restart, 'service[nginx]', :immediate
 end
