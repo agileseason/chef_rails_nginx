@@ -122,3 +122,23 @@ node.override['chef_rails_nginx']['letsencrypt'] = {
 
 include_recipe 'chef_rails_nginx::default'
 ```
+
+
+Example 3
+---------
+
+```ruby
+override['chef_rails_nginx']['servers']['example'] = {
+  name: 'example',
+  domains: %w[
+    example.com
+  ],
+  www_redirect: {
+    from: 'www.example.com',
+    to: 'example.com'
+  },
+  upstream: 'unicorn'
+}
+
+include_recipe 'chef_rails_nginx::default'
+```
