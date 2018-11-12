@@ -142,3 +142,29 @@ override['chef_rails_nginx']['servers']['example'] = {
 
 include_recipe 'chef_rails_nginx::default'
 ```
+
+Example 4
+---------
+Action Cable + Unicorn
+
+```ruby
+override['chef_rails_nginx']['servers']['example'] = {
+  name: 'example',
+  domains: %w[
+    example.com
+  ],
+  upstream: 'unicorn',
+  config: <<-CONFIG
+    location /cable {
+      proxy_pass http://unicorn/cable;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_redirect off;
+    }
+  CONFIG
+}
+```
