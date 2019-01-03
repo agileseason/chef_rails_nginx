@@ -19,6 +19,10 @@ default['chef_rails_nginx']['ssl_files']['ssl_certificate_key'] = nil
 default['chef_rails_nginx']['custom_config_section'] = nil
 
 default['chef_rails_nginx']['servers'] = {}
+
+default['chef_rails_nginx']['nginx']['worker_connections'] = 16_384
+default['chef_rails_nginx']['nginx']['worker_rlimit_nofile'] = 30_000
+
 # default['chef_rails_nginx']['servers']['default'] = {
 #   name: 'default',
 #   config: <<-CONFIG

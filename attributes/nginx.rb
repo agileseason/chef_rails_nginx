@@ -1,3 +1,5 @@
+include_attribute 'chef_rails_nginx::default'
+
 # version = '1.10.1'
 # checksum = '1fd35846566485e03c0e318989561c135c598323ff349c503a6c14826487a801'
 
@@ -36,5 +38,7 @@ override['nginx']['source']['default_configure_flags'] = %W[
   --sbin-path=#{node['nginx']['source']['sbin_path']}
 ]
 
-override['nginx']['worker_connections'] = 16_384
-override['nginx']['worker_rlimit_nofile'] = 30_000
+override['nginx']['worker_connections'] =
+  node['chef_rails_nginx']['nginx']['worker_connections']
+override['nginx']['worker_rlimit_nofile'] =
+  node['chef_rails_nginx']['nginx']['worker_rlimit_nofile']
