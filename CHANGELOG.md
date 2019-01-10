@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.6
+-----
+- Added woff2 format to rule for static files.
+
 0.3.5
 -----
 - Allow to override node['nginx']['worker_connections'] and node['nginx']['worker_rlimit_nofile'].
