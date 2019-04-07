@@ -1,11 +1,5 @@
 include_attribute 'chef_rails_nginx::default'
 
-# version = '1.10.1'
-# checksum = '1fd35846566485e03c0e318989561c135c598323ff349c503a6c14826487a801'
-
-# version = '1.10.3'
-# checksum = '75020f1364cac459cb733c4e1caed2d00376e40ea05588fb8793076a4c69dd90'
-
 version = '1.14.0'
 # curl -L -s http://nginx.org/download/nginx-<version>.tar.gz | shasum -a 256
 checksum = '5d15becbf69aba1fe33f8d416d97edd95ea8919ea9ac519eff9bafebb6022cb5'
@@ -42,3 +36,9 @@ override['nginx']['worker_connections'] =
   node['chef_rails_nginx']['nginx']['worker_connections']
 override['nginx']['worker_rlimit_nofile'] =
   node['chef_rails_nginx']['nginx']['worker_rlimit_nofile']
+
+override['nginx']['log_formats']['proxied'] =
+  <<-FORMAT.gsub(/^ +/, '').delete("\n")
+    '$http_x_forwarded_for - $remote_user [$time_local] "$request"
+    $status $body_bytes_sent "$http_referer" "$http_user_agent"'
+  FORMAT

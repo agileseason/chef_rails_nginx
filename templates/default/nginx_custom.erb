@@ -50,7 +50,7 @@ server {
 
 <%- if @upstream -%>
   root <%= @app_root_dir %>/public;
-  access_log <%= @app_shared_dir %>/log/nginx_access.log;
+  access_log <%= @app_shared_dir %>/log/nginx_access.log<%= " #{@log_format}" if @log_format %>;
   error_log <%= @app_shared_dir %>/log/nginx_error.log;
 
   <% if @page_50x %>error_page 500 502 503 /500.html;<% end %>

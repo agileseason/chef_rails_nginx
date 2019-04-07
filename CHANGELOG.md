@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.7
+-----
+- Add "proxied" log format, allow to specify log_format for access_log
+
 0.3.6
 -----
 - Added woff2 format to rule for static files.
