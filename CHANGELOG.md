@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.8
+-----
+- Update nginx to 1.17.0
+
 0.3.7
 -----
 - Add "proxied" log format, allow to specify log_format for access_log
