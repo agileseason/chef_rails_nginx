@@ -10,7 +10,7 @@ proxy_cache_path <%= @app_cache_dir %> levels=1:2 keys_zone=app_cache:50m max_si
 <%- end -%>
 <%- if @upstream -%>
 # http://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream
-upstream <%= @upstream %> {
+upstream <%= @name %> {
   server unix:<%= @app_shared_dir %>/tmp/sockets/<%=@upstream %>.socket;
 }
 
@@ -149,7 +149,7 @@ server {
     proxy_buffers 8 16k;
     proxy_buffer_size 32k;
 
-    proxy_pass http://<%= @upstream %>;
+    proxy_pass http://<%= @name %>;
   }
   location / {
     try_files $uri @app;

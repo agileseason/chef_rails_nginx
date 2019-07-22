@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.9
+-----
+- Fix duplication of upstream names
+
 0.3.8
 -----
 - Update nginx to 1.17.0

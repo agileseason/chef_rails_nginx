@@ -14,6 +14,7 @@ node['chef_rails_nginx']['servers'].each do |_, config|
       config: config['config'],
       log_format: config['log_format'],
 
+      name: config_name,
       upstream: config['upstream'],
 
       app_cache_dir: (app.dir(:nginx_cache) if config['upstream']),
