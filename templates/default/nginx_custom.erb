@@ -26,7 +26,9 @@ server {
 <%- unless @allow_http -%>
 server {
   listen 80;
+<%- if @domains -%>
   server_name <%= @domains.join ' ' %>;
+<%- end -%>
 
   location ^~ /.well-known/acme-challenge/ {
     default_type "text/plain";
@@ -46,7 +48,9 @@ server {
 <%- unless @disable_https -%>
   listen 443 ssl http2;
 <%- end -%>
+<%- if @domains -%>
   server_name <%= @domains.join ' ' %>;
+<%- end -%>
 
 <%- if @upstream -%>
   root <%= @app_root_dir %>/public;

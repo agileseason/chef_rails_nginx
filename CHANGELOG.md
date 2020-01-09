@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.10
+-----
+- Do not add `server_name` line when domains are nil
+
 0.3.9
 -----
 - Fix duplication of upstream names
