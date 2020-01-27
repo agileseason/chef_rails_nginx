@@ -3,7 +3,7 @@ chef_rails_nginx CHANGELOG
 
 0.3.11
 -----
-- Add `['chef_rails_nginx']['letsencrypt']['renew']` param to configure renewal interval in days.
+- Add `node['chef_rails_nginx']['letsencrypt']['renew']` param to configure renewal interval in days.
 
 0.3.10
 -----
