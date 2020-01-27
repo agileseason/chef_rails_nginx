@@ -30,6 +30,7 @@ link '/etc/nginx/sites-enabled/letsencrypt_server' do
 end
 
 node.override['acme']['contact'] = config['contact']
+node.override['acme']['renew'] = config['renew']
 
 include_recipe 'acme::default'
 

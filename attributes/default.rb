@@ -1,6 +1,7 @@
 default['chef_rails_nginx']['letsencrypt']['enabled'] = false
 default['chef_rails_nginx']['letsencrypt']['site_name'] = nil
 default['chef_rails_nginx']['letsencrypt']['contact'] = nil
+default['chef_rails_nginx']['letsencrypt']['renew'] = 45
 default['chef_rails_nginx']['letsencrypt']['domains'] = []
 
 default['chef_rails_nginx']['basic_auth']['enabled'] = false
