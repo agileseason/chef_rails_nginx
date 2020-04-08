@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.12
+-----
+- Update nginx to 1.17.9
+
 0.3.11
 -----
 - Add `node['chef_rails_nginx']['letsencrypt']['renew']` param to configure renewal interval in days.

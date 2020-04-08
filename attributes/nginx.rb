@@ -1,8 +1,8 @@
 include_attribute 'chef_rails_nginx::default'
 
-version = '1.17.0'
+version = '1.17.9'
 # curl -L -s http://nginx.org/download/nginx-<version>.tar.gz | shasum -a 256
-checksum = 'e21b5d06cd53e86afb94f0b3678e0abb0c0f011433471fa3d895cefa65ae0fab'
+checksum = '7dd65d405c753c41b7fdab9415cfb4bdbaf093ec6d9f7432072d52cb7bcbb689'
 
 override['nginx']['version'] = version
 override['nginx']['dir'] = '/etc/nginx'
