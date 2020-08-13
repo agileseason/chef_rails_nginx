@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.13
+-----
+- Add webp image format
+
 0.3.12
 -----
 - Update nginx to 1.17.9
