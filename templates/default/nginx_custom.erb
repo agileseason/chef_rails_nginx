@@ -1,6 +1,9 @@
 # This file is managed by Chef.
 # Do NOT modify this file directly.
 
+<%- if @http_config -%>
+<%=@http_config %>
+<%- end -%>
 <%- if @config && @config.include?("server {") -%>
 <%=@config %>
 <%- else -%>

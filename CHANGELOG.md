@@ -1,6 +1,14 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.14
+-----
+- Add http_config to server option
+
+0.3.13
+-----
+- Add webp image format
+
 0.3.13
 -----
 - Add webp image format
