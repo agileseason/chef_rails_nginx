@@ -1,5 +1,3 @@
-include_attribute 'chef_rails_nginx::default'
-
 version = '1.17.9'
 # curl -L -s http://nginx.org/download/nginx-<version>.tar.gz | shasum -a 256
 checksum = '7dd65d405c753c41b7fdab9415cfb4bdbaf093ec6d9f7432072d52cb7bcbb689'
@@ -31,11 +29,6 @@ override['nginx']['source']['default_configure_flags'] = %W[
   --conf-path=#{node['nginx']['dir']}/nginx.conf
   --sbin-path=#{node['nginx']['source']['sbin_path']}
 ]
-
-override['nginx']['worker_connections'] =
-  node['chef_rails_nginx']['nginx']['worker_connections']
-override['nginx']['worker_rlimit_nofile'] =
-  node['chef_rails_nginx']['nginx']['worker_rlimit_nofile']
 
 override['nginx']['log_formats']['proxied'] =
   <<-FORMAT.gsub(/^ +/, '').delete("\n")

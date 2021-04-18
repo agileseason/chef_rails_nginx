@@ -9,6 +9,9 @@
 
 config = node['chef_rails_nginx']
 
+node.override['nginx']['worker_connections'] = config['nginx']['worker_connections']
+node.override['nginx']['worker_rlimit_nofile'] = config['nginx']['worker_rlimit_nofile']
+
 raise "node['chef_rails_nginx']['servers'] is empty" if config['servers'].empty?
 
 include_recipe 'chef_nginx::source'

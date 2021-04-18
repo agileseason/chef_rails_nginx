@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.3.15
+-----
+- Fix override of worker_connections and worker_rlimit_nofile that does not work in some cases.
+
 0.3.14
 -----
 - Add http_config to server option
