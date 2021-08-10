@@ -89,13 +89,13 @@ server {
   ssl_stapling_verify on;
 <%- end -%>
 
-<%- if @basic_auth_file -%>
+<%- if @basic_auth_file && !@upstream -%>
   location <%=@basic_auth_location %> {
     auth_basic           "Restricted Access!";
     auth_basic_user_file <%=@basic_auth_file %>;
   }
-
 <%- end -%>
+
   gzip_types
     application/atom+xml
     application/javascript
@@ -159,6 +159,10 @@ server {
     proxy_pass http://<%= @name %>;
   }
   location / {
+    <%- if @basic_auth_file -%>
+    auth_basic           "Restricted Access!";
+    auth_basic_user_file <%=@basic_auth_file %>;
+    <%- end -%>
     try_files $uri @app;
   }
 <%- end -%>
