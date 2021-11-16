@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.4.0
+-----
+- Update nginx to 1.21.4
+
 0.3.17
 -----
 - Fix duplicate location "/" error when `basic_auth` and `upstream` are enabled #1
