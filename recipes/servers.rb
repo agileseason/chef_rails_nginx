@@ -11,6 +11,7 @@ node['chef_rails_nginx']['servers'].each do |_, config|
     variables(
       domains: config['domains'],
       ssl_files: node['chef_rails_nginx']['ssl_files'],
+      config_pre: config['config_pre'],
       config: config['config'],
       http_config: config['http_config'],
       log_format: config['log_format'],
