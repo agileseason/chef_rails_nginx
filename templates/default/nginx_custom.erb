@@ -33,10 +33,12 @@ server {
   server_name <%= @domains.join ' ' %>;
 <%- end -%>
 
+<%- if @is_letsencrypt_enabled -%>
   location ^~ /.well-known/acme-challenge/ {
     default_type "text/plain";
     root /var/www/letsencrypt;
   }
+<%- end -%>
 
   location / {
     return 301 https://$host$request_uri;
@@ -126,6 +128,13 @@ server {
     add_header Cache-Control no-cache;
     expires 0;
   }
+
+<%- if @is_letsencrypt_enabled -%>
+  location ^~ /.well-known/acme-challenge/ {
+    default_type "text/plain";
+    root /var/www/letsencrypt;
+  }
+<%- end -%>
 
 <%=@config %>
 

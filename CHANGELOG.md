@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.4.1
+-----
+- Add letsencryot location rule to https server
+
 0.4.0
 -----
 - Update nginx to 1.21.4

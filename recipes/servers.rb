@@ -33,7 +33,8 @@ node['chef_rails_nginx']['servers'].each do |_, config|
       allow_http: config['allow_http'],
       disable_https: config['disable_https'],
       www_redirect_from: (www_redirect['from'] if www_redirect),
-      www_redirect_to: (www_redirect['to'] if www_redirect)
+      www_redirect_to: (www_redirect['to'] if www_redirect),
+      is_letsencrypt_enabled: node['chef_rails_nginx']['letsencrypt']['enabled']
     )
 
     notifies :reload, 'service[nginx]'
