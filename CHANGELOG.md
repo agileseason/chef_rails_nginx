@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.4.3
+-----
+- Add `config_app` option
+
 0.4.2
 -----
 - Add `config_pre` option

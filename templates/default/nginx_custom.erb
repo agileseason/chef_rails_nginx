@@ -167,6 +167,8 @@ server {
     proxy_buffers 8 16k;
     proxy_buffer_size 32k;
 
+<%=@config_app %>
+
     proxy_pass http://<%= @name %>;
   }
   location / {
