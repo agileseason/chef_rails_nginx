@@ -1,6 +1,6 @@
-version = '1.21.4'
+version = '1.25.3'
 # curl -L -s http://nginx.org/download/nginx-<version>.tar.gz | shasum -a 256
-checksum = 'd1f72f474e71bcaaf465dcc7e6f7b6a4705e4b1ed95c581af31df697551f3bfe'
+checksum = '64c5b975ca287939e828303fa857d22f142b251f17808dfe41733512d9cded86'
 
 override['nginx']['version'] = version
 override['nginx']['dir'] = '/etc/nginx'
