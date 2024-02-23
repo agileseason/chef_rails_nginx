@@ -45,3 +45,15 @@ acme_certificate config['site_name'] do
 
   notifies :restart, 'service[nginx]', :immediate
 end
+
+file '/etc/nginx/sites-available/letsencrypt_server' do
+  action :delete
+  only_if { File.exist? '/etc/nginx/sites-available/letsencrypt_server' }
+  notifies :reload, 'service[nginx]'
+end
+
+file '/etc/nginx/sites-enabled/letsencrypt_server' do
+  action :delete
+  only_if { File.exist? '/etc/nginx/sites-enabled/letsencrypt_server' }
+  notifies :reload, 'service[nginx]'
+end

@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.5.2
+-----
+- Remove letsencrypt nginx config after letsencrypt setup is complete
+
 0.5.1
 -----
 - Update nginx to 1.25.4
@@ -19,7 +23,7 @@ chef_rails_nginx CHANGELOG
 
 0.4.1
 -----
-- Add letsencryot location rule to https server
+- Add letsencrypt location rule to https server
 
 0.4.0
 -----
