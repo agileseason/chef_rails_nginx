@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.5.1
+-----
+- Update nginx to 1.25.4
+
 0.5.0
 -----
 - Update nginx to 1.25.3
