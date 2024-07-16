@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.5.3
+-----
+- Add `node['chef_rails_nginx']['disable_logs']` option to disable nginx logs
+
 0.5.2
 -----
 - Remove letsencrypt nginx config after letsencrypt setup is complete
