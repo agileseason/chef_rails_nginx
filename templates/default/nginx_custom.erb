@@ -62,16 +62,18 @@ server {
 <%- if @upstream -%>
   root <%= @app_root_dir %>/public;
 
-<%- if @disable_logs -%>
-  access_log off;
-  error_log off;
-<%- else -%>
+<%- unless @disable_logs -%>
   access_log <%= @app_shared_dir %>/log/nginx_access.log<%= " #{@log_format}" if @log_format %>;
   error_log <%= @app_shared_dir %>/log/nginx_error.log;
 <%- end -%>
 
   <% if @page_50x %>error_page 500 502 503 /500.html;<% end %>
   <% if @page_404 %>error_page 404 /404.html;<% end %>
+<%- end -%>
+
+<%- if @disable_logs -%>
+  access_log off;
+  error_log off;
 <%- end -%>
 
 <%=@config_pre %>
