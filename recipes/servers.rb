@@ -38,7 +38,9 @@ node['chef_rails_nginx']['servers'].each do |_, config|
       www_redirect_from: (www_redirect['from'] if www_redirect),
       www_redirect_to: (www_redirect['to'] if www_redirect),
       is_letsencrypt_enabled: node['chef_rails_nginx']['letsencrypt']['enabled'],
-      disable_logs: config['disable_logs']
+      disable_logs: config['disable_logs'],
+
+      http2_max_concurrent_streams: node['chef_rails_nginx']['nginx']['http2_max_concurrent_streams']
     )
 
     notifies :reload, 'service[nginx]'
