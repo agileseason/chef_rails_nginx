@@ -24,8 +24,8 @@ default['chef_rails_nginx']['servers'] = {}
 default['chef_rails_nginx']['nginx']['worker_connections'] = 16_384
 default['chef_rails_nginx']['nginx']['worker_rlimit_nofile'] = 30_000
 
-default['chef_rails_nginx']['nginx']['http2_max_concurrent_streams'] = nil
-default['chef_rails_nginx']['nginx']['keepalive_requests'] = nil
+default['chef_rails_nginx']['nginx']['http2_max_concurrent_streams'] = nil # by defualt 128 in nginx
+default['chef_rails_nginx']['nginx']['keepalive_requests'] = nil # by default 1000 in nginx
 
 # default['chef_rails_nginx']['servers']['default'] = {
 #   name: 'default',
