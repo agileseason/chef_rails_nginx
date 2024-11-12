@@ -1,6 +1,14 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.5.6
+-----
+- Add `keepalive_requests` directive
+
+0.5.5
+-----
+- Add `http2_max_concurrent_streams` directive
+
 0.5.4
 -----
 - Add `upstream_socket_name` option

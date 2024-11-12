@@ -40,7 +40,8 @@ node['chef_rails_nginx']['servers'].each do |_, config|
       is_letsencrypt_enabled: node['chef_rails_nginx']['letsencrypt']['enabled'],
       disable_logs: config['disable_logs'],
 
-      http2_max_concurrent_streams: node['chef_rails_nginx']['nginx']['http2_max_concurrent_streams']
+      http2_max_concurrent_streams: node['chef_rails_nginx']['nginx']['http2_max_concurrent_streams'],
+      keepalive_requests: node['chef_rails_nginx']['nginx']['keepalive_requests']
     )
 
     notifies :reload, 'service[nginx]'

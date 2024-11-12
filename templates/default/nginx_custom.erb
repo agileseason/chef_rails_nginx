@@ -81,6 +81,9 @@ server {
 <%- if @http2_max_concurrent_streams -%>
   http2_max_concurrent_streams <%=@http2_max_concurrent_streams %>;
 <%- end -%>
+<%- if @keepalive_requests -%>
+  keepalive_requests <%=@keepalive_requests %>;
+<%- end -%>
 
   server_tokens off;
   client_max_body_size 100M;
