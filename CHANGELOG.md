@@ -1,9 +1,9 @@
 chef_rails_nginx CHANGELOG
 ======================
 
-0.5.6
+0.6.0
 -----
-- Add `keepalive_requests` directive
+- Upgrade to `1.26.2` nginx
 
 0.5.5
 -----
