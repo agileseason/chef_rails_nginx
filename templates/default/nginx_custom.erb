@@ -14,7 +14,7 @@ proxy_cache_path <%= @app_cache_dir %> levels=1:2 keys_zone=app_cache:50m max_si
 <%- if @upstream -%>
 # http://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream
 upstream <%= @name %> {
-  server unix:<%= @app_shared_dir %>/tmp/sockets/<%=@upstream %>.socket;
+  server unix:<%= @app_shared_dir %>/tmp/sockets/<%=@upstream_socket_name %>.socket;
 }
 
 <%- end -%>

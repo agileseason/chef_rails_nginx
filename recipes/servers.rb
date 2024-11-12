@@ -19,6 +19,7 @@ node['chef_rails_nginx']['servers'].each do |_, config|
 
       name: config_name,
       upstream: config['upstream'],
+      upstream_socket_name: config['upstream_socket_name'] || config['upstream'],
 
       app_cache_dir: (app.dir(:nginx_cache) if config['upstream']),
       app_shared_dir: (app.dir(:shared) if config['upstream']),

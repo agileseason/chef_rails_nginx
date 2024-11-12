@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.5.4
+-----
+- Add `upstream_socket_name` option
+
 0.5.3
 -----
 - Add `node['chef_rails_nginx']['disable_logs']` option to disable nginx logs
