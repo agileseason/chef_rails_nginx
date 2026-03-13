@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.6.2
+-----
+- Upgrade to `1.28.2` nginx
+
 0.6.1
 -----
 - Upgrade SSL options to support TLSv1.3, disable very old configuration https://ssl-config.mozilla.org/
