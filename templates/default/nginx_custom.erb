@@ -132,6 +132,7 @@ server {
     text/plain
     text/x-component;
 
+<%- unless @skip_default_file_types -%>
   location ~* ^.+\.(css|js|jpg|jpeg|png|gif|webp|css|js|ttf|eot|otf|svg|woff|woff2)$ {
     access_log off;
     expires max;
@@ -146,13 +147,14 @@ server {
     expires 0;
   }
 
+<%- end -%>
 <%- if @is_letsencrypt_enabled -%>
   location ^~ /.well-known/acme-challenge/ {
     default_type "text/plain";
     root /var/www/letsencrypt;
   }
-<%- end -%>
 
+<%- end -%>
 <%=@config %>
 
   location /nginx_stub_status {

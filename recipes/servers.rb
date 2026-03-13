@@ -39,6 +39,7 @@ node['chef_rails_nginx']['servers'].each do |_, config|
       www_redirect_to: (www_redirect['to'] if www_redirect),
       is_letsencrypt_enabled: node['chef_rails_nginx']['letsencrypt']['enabled'],
       disable_logs: config['disable_logs'],
+      skip_default_file_types: config['skip_default_file_types'],
 
       http2_max_concurrent_streams: node['chef_rails_nginx']['nginx']['http2_max_concurrent_streams'],
       keepalive_requests: node['chef_rails_nginx']['nginx']['keepalive_requests']

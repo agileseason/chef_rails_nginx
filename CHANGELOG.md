@@ -1,6 +1,10 @@
 chef_rails_nginx CHANGELOG
 ======================
 
+0.6.3
+-----
+- Add option `skip_default_file_types`
+
 0.6.2
 -----
 - Upgrade to `1.28.2` nginx
